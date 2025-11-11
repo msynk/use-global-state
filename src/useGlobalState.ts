@@ -1,25 +1,14 @@
 import React from "react";
-
-type Subscriber<T> = {
-    id: number;
-    setter: React.Dispatch<React.SetStateAction<T>>;
-};
-
-type StoreEntry<T> = {
-    value: T;
-    subscribers: Subscriber<T>[];
-};
-
-type StateValue<T> = T | ((prev: T) => T);
+import { GlobalStateReturn, GlobalStateValue, GlobalStoreEntry } from "./types";
 
 let idCounter = 0;
-const globalStore = new Map<string, StoreEntry<any>>();
+const globalStore = new Map<string, GlobalStoreEntry<any>>();
 
 
 export function useGlobalState<T>(
     key: string,
-    initialValue: StateValue<T>
-): [T, (value: StateValue<T>, signal?: boolean) => void, (value: T | ((prev: T) => T)) => void] {
+    initialValue?: GlobalStateValue<T>
+): GlobalStateReturn<T> {
 
     if (!globalStore.has(key)) {
         globalStore.set(key, { value: initialValue, subscribers: [] });
@@ -36,7 +25,7 @@ export function useGlobalState<T>(
         };
     }, [key]);
 
-    const setGlobalState = (value: StateValue<T>, signal?: boolean) => {
+    const setGlobalState = (value: GlobalStateValue<T>, signal?: boolean) => {
         const valueToStore =
             typeof value === "function"
                 ? (value as (prev: T) => T)(store.value)
@@ -50,7 +39,7 @@ export function useGlobalState<T>(
         }
     };
 
-    const signal = <T>(value: T | ((prev: T) => T)) => {
+    const signal = <T>(value: GlobalStateValue<T>) => {
         const store = globalStore.get(key);
         if (!store) return;
 
@@ -66,13 +55,12 @@ export function useGlobalState<T>(
         }
     }
 
-
     return [state, setGlobalState, signal];
 }
 
-export function useGlobalSignal<T>(key: string, value: T | ((prev: T) => T)) {
-    const [_, __, dispatch] = useGlobalState<T>(key, value as T);
+export function useGlobalSignal<T>(key: string, value: GlobalStateValue<T>) {
+    const [_, __, signal] = useGlobalState<T>(key, value as T);
 
-    return dispatch;
+    return signal;
 }
 

@@ -1,6 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
 import { expect, it } from 'vitest';
-import { useGlobalState } from "./useGlobalState";
+import { useGlobalState } from "../src/useGlobalState";
 
 it("should share correct initial state between hooks", () => {
     const initialValue = 5;
