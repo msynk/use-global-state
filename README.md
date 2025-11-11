@@ -1,8 +1,9 @@
+
+![CI](https://github.com/msynk/use-global-state/actions/workflows/ci.yml/badge.svg)
+
 # use-global-state
 
 A lightweight, dependency-free global state manager for React, using named slices.
-
-![CI](https://github.com/msynk/use-global-state/actions/workflows/ci.yml/badge.svg)
 
 
 ## How to use
