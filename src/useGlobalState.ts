@@ -9,7 +9,7 @@ const globalStore = new Map<string, StateStore<any>>();
 
 export function useGlobalState<T>(
     key: string,
-    initialValue: T
+    initialValue?: T
 ): [T, Dispatch<SetStateAction<T>>] {
     if (!globalStore.has(key)) {
         globalStore.set(key, { value: initialValue, stateSetters: new Set() });
