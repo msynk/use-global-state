@@ -10,11 +10,12 @@ A lightweight, dependency-free global state manager for React, using named slice
 
 ```bash
 function CompA() {
-    const [globalState, setGlobalState] = useGlobalState('my-global-state-name'); // shared global state
+    const [globalState, setGlobalState, signalGlobal] = useGlobalState('my-global-state-name'); // shared global state
+    const signalGlobalState = useGlobalSignal('my-global-state-name'); // global state signal
 }
 
 
 function CompB() {
-    const [globalState, setGlobalState] = useGlobalState('my-global-state-name'); // shared global state
+    const [globalState] = useGlobalState('my-global-state-name'); // shared global state
 }
 ```
