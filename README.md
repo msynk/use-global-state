@@ -2,8 +2,15 @@
 
 A lightweight, dependency-free global state manager for React, using named slices.
 
-## Install
+## How to use
 
 ```bash
-npm install use-global-state
+function CompA() {
+    const [globalState, setGlobalState] = useGlobalState('my-global-state-name'); // shared global state
+}
+
+
+function CompB() {
+    const [globalState, setGlobalState] = useGlobalState('my-global-state-name'); // shared global state
+}
 ```
