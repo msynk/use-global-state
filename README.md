@@ -3,7 +3,7 @@
 
 # use-global-state
 
-A lightweight, dependency-free global state manager for React, using named slices.
+A cool, lightweight, dependency-free global state manager for React, using named slices.
 
 
 ## How to use
